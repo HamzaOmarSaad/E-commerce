@@ -18,17 +18,21 @@ function Navbar() {
     <>
       <div className="navbar fixed top-0 w-full bg-white z-50 shadow-sm">
         {/* Sale Banner */}
-        <div className="sale bg-black w-full text-white text-center py-2 px-4">
-          <p className="text-xs sm:text-sm">
-            Sign up and get 20% off to your first order.
-            <Link
-              href="/register"
-              className="underline ml-2 hover:text-gray-300"
-            >
-              Sign Up Now
-            </Link>
-          </p>
-        </div>
+        {status === "authenticated" ? (
+          ""
+        ) : (
+          <div className="sale bg-black w-full text-white text-center py-2 px-4">
+            <p className="text-xs sm:text-sm">
+              Sign up and get 20% off to your first order.
+              <Link
+                href="/register"
+                className="underline ml-2 hover:text-gray-300"
+              >
+                Sign Up Now
+              </Link>
+            </p>
+          </div>
+        )}
 
         <div className="main-nav flex justify-between items-center p-4 container mx-auto">
           <div className="logo">
@@ -82,13 +86,13 @@ function Navbar() {
                 />
               </Link>
               <span className="bg-black text-white text-xs rounded-full px-2 py-1 absolute -top-2 -right-2 min-w-[20px] text-center">
-                {cart?.products?.length}
+                {cart?.products?.length ||0}
               </span>
             </div>
 
             {/* Logout - Hidden on mobile */}
             {status === "loading" ? (
-              <Skeleton className="" />
+              <Skeleton className="h-3" />
             ) : status === "authenticated" ? (
               <button
                 onClick={() => signOut({ callbackUrl: "/login" })}

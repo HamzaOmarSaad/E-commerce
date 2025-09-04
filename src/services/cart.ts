@@ -18,8 +18,26 @@ export async function getProductsCart() {
 
   const data = await res.json();
   return data;
-}
 
+}
+export async function ClearAll() {
+  const token = await getToken();
+  const res = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {
+    method: "DELETE",
+
+    headers: {
+      token,
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    return { error: res.statusText };
+  }
+
+  const data = await res.json();
+  return data;
+}
 export async function AddToCart(id: string) {
   const token = await getToken();
   const res = await fetch("https://ecommerce.routemisr.com/api/v1/cart", {

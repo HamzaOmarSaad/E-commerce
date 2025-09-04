@@ -8,3 +8,16 @@ export async function getAllBrands() {
   const data = await res.json();
   return data;
 }
+
+export async function getSpecificBrandProducts(id: string) {
+  const res = await fetch(
+    `https://ecommerce.routemisr.com/api/v1/products?brand=${id}`
+  );
+
+  if (!res.ok) {
+    return { error: res.statusText };
+  }
+
+  const data = await res.json();
+  return data;
+}

@@ -42,7 +42,6 @@ export default function Page() {
       password: values.password,
       redirect: false,
     });
-    console.log("🚀 ~ onSubmit ~ res:", res);
     if (!res?.ok) {
       toast.error(res?.error);
     } else {

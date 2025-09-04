@@ -9,7 +9,6 @@ export async function getToken() {
     token: sessionToken,
     secret: process.env.AUTH_SECRET!,
   });
-  console.log("🚀 ~ getToken ~ token:", token)
   
   return token?.token as string;
 }

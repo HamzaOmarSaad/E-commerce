@@ -4,7 +4,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="footer  bg-zinc-300 py-5 mt-4">
+    <div className="footer  bg-zinc-300 py-5 mt-4 ">
       <div className=" flex justify-around">
         <div className="brand-info pt-4 w-30/100 ">
           <h1 className="text-4xl mb-3 ">SHOP.CO</h1>

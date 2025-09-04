@@ -18,10 +18,10 @@ export default function MainSlider() {
     <Slider {...settings}>
       <div>
         <Image
-          src="/image3.png"
+          src="/banner-4.jpeg"
           alt=""
-          width={500}
-          height={200}
+          width={3500}
+          height={500}
           className="mx-auto size-100 w-500"
         />
       </div>
@@ -29,9 +29,9 @@ export default function MainSlider() {
         <Image
           src="/image2.png"
           alt=""
-          width={500}
+          width={3500}
           height={200}
-          className="mx-auto size-100 w-500"
+          className="mx-auto h-100 w-500"
         />
       </div>
     </Slider>

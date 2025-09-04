@@ -1,5 +1,5 @@
 "use client";
-import { AddToCart, adjustQunatity, getProductsCart, removeFromCart } from "@/services/cart";
+import { AddToCart, adjustQunatity, ClearAll, getProductsCart, removeFromCart } from "@/services/cart";
 import { ICart } from "@/types/cart.type";
 import React, { createContext, ReactNode, useState, useEffect } from "react";
 import { toast } from "sonner";
@@ -13,12 +13,14 @@ interface CartContextType {
   addProduct: (id: string) => Promise<void>;
   removeProduct: (id: string) => Promise<void>;
   getCartProducts: () => Promise<void>;
-  QuantityAdjustion: (id: string,count:number) => Promise<void>;
+  ClearCart: () => Promise<void>;
+  QuantityAdjustion: (id: string, count: number) => Promise<void>;
 }
 
 export const cartContext = createContext<CartContextType>({
   cart: {} as ICart,
   addProduct: async () => {},
+  ClearCart: async () => {},
   removeProduct: async () => {},
   getCartProducts: async () => {},
   QuantityAdjustion: async () => {},
@@ -32,6 +34,16 @@ function CartContextProvider(props: Props) {
   async function getCartProducts() {
     const res = await getProductsCart();
     setCart(res.data);
+  }
+  async function ClearCart() {
+    const data = await ClearAll();
+        console.log("🚀 ~ ClearCart ~ data:", data)
+        if (data.message === "success") {
+          toast.success( "cart cleared successfully");
+        } else {
+          toast.error(data.error || "somthing wrong happened");
+        }
+        await getCartProducts();
   }
   async function addProduct(id: string) {
     const data = await AddToCart(id);
@@ -61,6 +73,7 @@ function CartContextProvider(props: Props) {
     }
     await getCartProducts();
   }
+  
 
   useEffect(() => {
     getCartProducts();
@@ -72,6 +85,7 @@ function CartContextProvider(props: Props) {
     getCartProducts,
     removeProduct,
     QuantityAdjustion,
+    ClearCart,
   };
   return <cartContext.Provider value={values}>{children}</cartContext.Provider>;
 }
