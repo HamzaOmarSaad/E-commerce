@@ -53,7 +53,7 @@ function ProductDetails(props: Props) {
           <div className="header flex items-center justify-between">
             <h1 className="text-4xl font-bold">{product?.data?.title}</h1>
             <Image
-              src={product.data?.brand?.image}
+              src={product.data?.brand?.image as string}
               alt=""
               width={300}
               height={400}
