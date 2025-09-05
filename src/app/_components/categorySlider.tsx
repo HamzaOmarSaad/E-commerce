@@ -18,26 +18,46 @@ function CategorySlider() {
     fetchCategories();
   }, []);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-  };
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 6,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
 
   return (
     <Slider {...settings}>
       {categories.map((category: ICategories, id: number) => (
         <div className="flex flex-col" key={id}>
           <Image
-            src={category.image}
+            src={category?.image}
             alt=""
             width={400}
             height={400}
             className="size-50"
           />
-          <p>{category.name}</p>
+          <p>{category?.name}</p>
         </div>
       ))}
     </Slider>
