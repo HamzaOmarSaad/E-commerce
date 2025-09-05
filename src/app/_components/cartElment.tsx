@@ -5,7 +5,8 @@ import Image from "next/image";
 import React, { useContext } from "react";
 
 function CartElment({ product }: { product: ProductElement }) {
-  const { addProduct, removeProduct, QuantityAdjustion } =useContext(cartContext);
+  const { addProduct, removeProduct, QuantityAdjustion } =
+    useContext(cartContext);
 
   return (
     <>
@@ -31,7 +32,7 @@ function CartElment({ product }: { product: ProductElement }) {
             <div className="brand flex items-center text-sm">
               <span>brand : </span>
               <Image
-                src={product.product?.brand?.image}
+                src={product.product?.brand?.image as string}
                 alt="hello"
                 width={50}
                 height={50}

@@ -13,8 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -85,7 +83,7 @@ function Page(props: Props) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 w-60/100 md:w-50/100 lg:w-40/100 mx-auto my-40 p-11 rounded-2xl bg-zinc-100"
+        className="space-y-8 w-70/100 md:w-50/100 lg:w-40/100 mx-auto my-40 p-11 rounded-2xl bg-zinc-100"
       >
         <FormField
           control={form.control}
