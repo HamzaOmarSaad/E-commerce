@@ -3,6 +3,7 @@ import React from "react";
 import ProductDetails from "../../_components/productDetails";
 import CategoryProducts from "@/app/_components/shared/categoryProducts";
 
+
 interface Props {
   params: {
     id: string;
@@ -14,6 +15,7 @@ async function Page(props: Props) {
   const id = params.id;
 
   const data = await getProductDetails(id);
+
   return (
     <div className="w-90/100 mx-auto">
       <ProductDetails product={data} />

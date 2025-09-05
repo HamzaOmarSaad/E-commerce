@@ -3,7 +3,6 @@ import CategorySlider from "./_components/categorySlider";
 import MainSlider from "./_components/mainSlider";
 import ProductCard from "./_components/productCard";
 import { getAllProduct } from "@/services/products";
-import Link from "next/link";
 
 async function Page() {
   const products = await getAllProduct();
@@ -18,12 +17,16 @@ async function Page() {
           <CategorySlider />
         </div>
       </div>
-      
-      <div className="products container mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.data.map((p: Iproduct) => (
-          <ProductCard product={p} key={p.id} />
-        ))}
-      </div>
+
+      {products ? (
+        <div className="products container mx-auto grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.data.map((p: Iproduct) => (
+            <ProductCard product={p} key={p.id} />
+          ))}
+        </div>
+      ) : (
+        "loading"
+      )}
     </>
   );
 }

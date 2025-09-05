@@ -62,21 +62,21 @@ function Page(props: Props) {
     if (values.paymentMethod === "cash") {
       const data = await COD(cart._id, address);
       if (data.status === "success") {
-          toast.success(data.message || "purchase done");
-          router.push("/allOrders")
+        toast.success(data.message || "purchase done");
+        router.push("/allOrders");
       } else {
         toast.error(data.error || "somthing wrong happened");
       }
     } else {
-        
       const data = await Visa(cart._id, address);
+      console.log("🚀 ~ onSubmit ~ data:", data);
+
       if (data.status === "success") {
-          toast.success(data.message || "purchase done");
+        toast.success(data.message || "purchase done");
         router.push(data.session.url);
       } else {
-          toast.error(data.error || "somthing wrong happened");
-                    router.push(data.cancel_url);
-
+        toast.error(data.error || "somthing wrong happened");
+        router.push(data.cancel_url);
       }
     }
   }
