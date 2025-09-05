@@ -7,14 +7,14 @@ import {
   removeFromWishlist,
 } from "@/services/wishlist";
 import { toast } from "sonner";
-import { IWishlist } from "@/types/wishlist.type ";
+import { Iproduct } from "@/types/product.type";
 
 interface Props {
   children: ReactNode;
 }
 
 interface WishlistContextType {
-  wishlist: IWishlist | null;
+  wishlist: Iproduct[] | null;
   addWishlistProduct: (id: string) => Promise<void>;
   removeWishlistProduct: (id: string) => Promise<void>;
   isLoading: boolean;
@@ -39,7 +39,7 @@ export const useWishlist = () => {
 // Your provider component remains the same...
 function WishlistContextProvider(props: Props) {
   const { children } = props;
-  const [wishlist, setWishlist] = useState<IWishlist | null>(null);
+  const [wishlist, setWishlist] = useState<Iproduct[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   async function getProductswishlist() {
@@ -94,7 +94,7 @@ function WishlistContextProvider(props: Props) {
   }, []);
 
   const values: WishlistContextType = {
-    wishlist,
+    wishlist:wishlist as Iproduct[],
     addWishlistProduct,
     removeWishlistProduct,
     isLoading
