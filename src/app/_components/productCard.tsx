@@ -7,11 +7,22 @@ import { Heart } from "iconsax-reactjs";
 import { ShoppingCartIcon, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 function ProductCard({ product }: { product: Iproduct }) {
   const { addProduct } = useContext(cartContext);
   const { addWishlistProduct } = useContext(wishlistContext);
+  const [isAdding, setIsAdding] = useState(false);
+
+  async function handleAdd() {
+    try {
+      setIsAdding(true);
+      await addProduct(product._id);
+    } finally {
+      setIsAdding(false);
+    }
+  }
   return (
     <div className="card bg-zinc-300 p-4 sm:h-190 md:h-180 flex flex-col  justify-between rounded-2xl relative ">
       <Button className="bg-white w-10 absolute rounded-4xl end-5" onClick={() => addWishlistProduct(product._id)}>
@@ -48,10 +59,20 @@ function ProductCard({ product }: { product: Iproduct }) {
       <div className="buttons  group-hover:block ">
         <Button
           className="w-90/100 p-4 m-4"
-          onClick={() => addProduct(product._id)}
+          onClick={handleAdd}
+          disabled={isAdding}
         >
-          <ShoppingCartIcon size="32" color="#FF8A65" />
-          Add to cart
+          {isAdding ? (
+            <>
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Adding...
+            </>
+          ) : (
+            <>
+              <ShoppingCartIcon size="32" color="#FF8A65" />
+              Add to cart
+            </>
+          )}
         </Button>
       </div>
     </div>

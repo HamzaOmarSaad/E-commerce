@@ -16,6 +16,8 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Loading from "@/app/_components/shared/loading";
 
 const formSchema = z.object({
   email: z.email({
@@ -27,6 +29,7 @@ const formSchema = z.object({
 });
 
 export default function Page() {
+  const [loading,setloading]=useState(false)
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -37,6 +40,7 @@ export default function Page() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setloading(true)
     const res = await signIn("credentials", {
       email: values.email,
       password: values.password,
@@ -45,8 +49,12 @@ export default function Page() {
     if (!res?.ok) {
       toast.error(res?.error);
     } else {
+            toast.success("login successfully");
+
       router.push("/");
+      
     }
+    setloading(false)
   }
 
   return (
@@ -87,7 +95,7 @@ export default function Page() {
             signup
           </Link>
         </p>
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Submit <Loading loading={ loading} /> </Button>
       </form>
     </Form>
   );
