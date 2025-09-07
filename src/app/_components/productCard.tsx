@@ -13,7 +13,7 @@ function ProductCard({ product }: { product: Iproduct }) {
   const { addProduct } = useContext(cartContext);
   const { addWishlistProduct } = useContext(wishlistContext);
   return (
-    <div className="card bg-zinc-300 p-4  md:h-160 flex flex-col  justify-between rounded-2xl relative ">
+    <div className="card bg-zinc-300 p-4 sm:h-190 md:h-180 flex flex-col  justify-between rounded-2xl relative ">
       <Button className="bg-white w-10 absolute rounded-4xl end-5" onClick={() => addWishlistProduct(product._id)}>
         <Heart size="32" color="#f00"  />
       </Button>
