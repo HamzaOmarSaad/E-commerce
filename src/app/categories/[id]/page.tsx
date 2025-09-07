@@ -1,5 +1,9 @@
 import React from "react";
-import CategoryProducts from "@/app/_components/shared/categoryProducts";
+import { getSpecificCategories } from "@/services/categories";
+import { Iproduct } from "@/types/product.type";
+import ProductCard from "@/app/_components/productCard";
+import Link from "next/link";
+import { ShoppingCart } from "iconsax-reactjs";
 
 interface Props {
   params: {
@@ -9,13 +13,31 @@ interface Props {
 
 async function Page(props: Props) {
   const { params } = props;
-  const id = await params.id;
+  const categoryId = await params.id;
+  const data = await getSpecificCategories(categoryId);
+  console.log("🚀 ~ CategoryProducts ~ data:", data);
 
-
-  return (
-      <CategoryProducts categoryId={id} />
-
+  return data.data.length ? (
+    <div className="products mx-auto grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {data.data.map((p: Iproduct) => (
+        <ProductCard product={p} key={p.id} />
+      ))}
+    </div>
+  ) : (
+    <div className="emptyMsg text-center w-full">
+      <p className="text-4xl my-4 font-bold">No elements in this category</p>
+      <p className="text-sm mb-10">See another one</p>
+      <Link
+        href="/categories"
+        className="w-40 bg-black text-white p-4 rounded-2xl mb-10 inline-block"
+      >
+        Go to categories
+        <ShoppingCart className="inline-block mx-3" />
+      </Link>
+    </div>
   );
+
+
 }
 
 export default Page;
