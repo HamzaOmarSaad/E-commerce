@@ -13,10 +13,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loading from "@/app/_components/shared/loading";
 
 const formSchema = z.object({
@@ -39,6 +39,7 @@ export default function Page() {
     },
   });
 
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setloading(true)
     const res = await signIn("credentials", {
@@ -49,10 +50,8 @@ export default function Page() {
     if (!res?.ok) {
       toast.error(res?.error);
     } else {
-            toast.success("login successfully");
-
-      router.push("/");
-      
+      toast.success("login successfully");
+      window.location.href = "/";
     }
     setloading(false)
   }
