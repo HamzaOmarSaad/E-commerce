@@ -6,6 +6,7 @@ import { getAllProduct } from "@/services/products";
 
 async function Page() {
   const products = await getAllProduct();
+  console.log("🚀 ~ Page ~ products:", products)
 
   return (
     <>
